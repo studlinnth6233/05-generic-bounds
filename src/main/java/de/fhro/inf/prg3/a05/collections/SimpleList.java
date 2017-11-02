@@ -78,13 +78,4 @@ public interface SimpleList<T> extends Iterable<T> {
 		}
 		return result;
 	}
-
-	/* Java 9
-	private <V> SimpleList<V> createNew(Class<SimpleList<V>> clazz){
-		try {
-			return clazz.getConstructor().newInstance()
-		} catch (Exception e) {
-			return new SimpleListImpl<>();
-		}
-	}*/
 }
