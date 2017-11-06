@@ -42,7 +42,7 @@ Remember to create tests for nearly every line you code!
 
 ## Bounds on Wildcards
 
-Last but not least we'll look at the PECS (**P**roducer **E**extends **C**onsumer **S**uper) principle.
+Last but not least we'll look at the PECS (**P**roducer **E**xtends **C**onsumer **S**uper) principle.
 
 ![Utils spec](./assets/class-spec-3.svg)
 
