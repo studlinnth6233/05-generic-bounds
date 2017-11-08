@@ -1,7 +1,7 @@
 @startuml
 package de.fhro.inf.prg3.a05.utils {
     +abstract class PlantBedUtility{
-        +{static} <R, T> splitBedByColor(bed: PlantBed<T>) : SimpleList<R>
+        +{static} <T> splitBedByColor(bed: PlantBed<T>) : Map<PlantColor, SimpleList<T>>
     }
 }
 @enduml
