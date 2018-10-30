@@ -1,6 +1,8 @@
 _This is an assignment to the class [Programmieren 3](https://hsro-inf-prg3.github.io) at the [Technical University of Applied Sciences Rosenheim](https://www.th-rosenheim.de)._
 
 # Assignment 5: Generics and Bounds
+[![Travis CI](https://travis-ci.org/hsro-inf-prg3/05-generic-bounds.svg?branch=musterloesung)](https://travis-ci.org/hsro-inf-prg3/05-generic-bounds)
+
 
 This assignment covers an advanced topic of generics: bounds on type parameters and wildcards.
 Bounds describe type constraints of generic classes or methods that allow to balance type safety with flexibility of use.
