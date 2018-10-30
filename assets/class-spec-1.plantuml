@@ -6,7 +6,7 @@ package java.lang {
     }
 }
 
-package de.fhro.inf.prg3.a05.model {
+package de.thro.inf.prg3.a05.model {
         +enum PlantColor {
             GREEN,
             YELLOW,

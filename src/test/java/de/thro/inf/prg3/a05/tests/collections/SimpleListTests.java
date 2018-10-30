@@ -1,9 +1,9 @@
-package de.fhro.inf.prg3.a05.tests.collections;
+package de.thro.inf.prg3.a05.tests.collections;
 
-import de.fhro.inf.prg3.a05.collections.SimpleFilter;
-import de.fhro.inf.prg3.a05.collections.SimpleList;
-import de.fhro.inf.prg3.a05.collections.SimpleListImpl;
-import de.fhro.inf.prg3.a05.tests.models.Person;
+import de.thro.inf.prg3.a05.collections.SimpleFilter;
+import de.thro.inf.prg3.a05.collections.SimpleList;
+import de.thro.inf.prg3.a05.collections.SimpleListImpl;
+import de.thro.inf.prg3.a05.tests.models.Person;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
