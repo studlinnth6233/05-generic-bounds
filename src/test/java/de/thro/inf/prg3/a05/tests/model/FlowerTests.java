@@ -1,11 +1,17 @@
 package de.thro.inf.prg3.a05.tests.model;
 
 import de.thro.inf.prg3.a05.model.Flower;
+import de.thro.inf.prg3.a05.model.Plant;
 import de.thro.inf.prg3.a05.model.PlantColor;
+import de.thro.inf.prg3.a05.model.Shrub;
 import org.junit.jupiter.api.Test;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Peter Kurfer
@@ -55,5 +61,27 @@ class FlowerTests {
 	void testGetCorrectFamily() {
 		Flower f = new Flower("Rosa", "Abracadabra", 0.5, PlantColor.RED);
 		assertEquals("Rosa", f.getFamily());
+	}
+
+	@Test
+	void testSortFlowers() {
+		List<Plant> flowers = new LinkedList<>();
+
+		flowers.add(new Shrub("Buxus", "Buxus sempervirens", 3.5));
+		flowers.add(new Flower("Rosa", "Abracadabra", 1.1, PlantColor.RED));
+		flowers.add(new Shrub("Buxus", "Buxus sempervirens", 5.5));
+		flowers.add(new Flower("Rosa", "Abracadabra", 0.5, PlantColor.RED));
+		flowers.add(new Shrub("Buxus", "Buxus sempervirens", 1.5));
+		flowers.add(new Flower("Rosa", "Abracadabra", 0.75, PlantColor.RED));
+		flowers.add(new Shrub("Buxus", "Buxus sempervirens", 4.5));
+		flowers.add(new Flower("Rosa", "Abracadabra", 2.5, PlantColor.RED));
+
+		flowers.sort(Plant::compareTo);
+
+		double lastHeight = 0.0;
+		for(Plant f : flowers){
+			assertTrue(f.getHeight() > lastHeight);
+			lastHeight = f.getHeight();
+		}
 	}
 }

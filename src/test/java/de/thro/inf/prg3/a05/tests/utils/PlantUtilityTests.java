@@ -46,4 +46,12 @@ class PlantUtilityTests {
 			assertEquals(PlantColor.YELLOW, f.getColor());
 		}
 	}
+
+	@Test
+	void testSplitByBedByColorPureness2() {
+		Map<PlantColor, SimpleList<? extends Flower>> split = PlantUtility.splitBedByColor2(flowerBed);
+		for (Flower f : split.get(PlantColor.YELLOW)) {
+			assertEquals(PlantColor.YELLOW, f.getColor());
+		}
+	}
 }

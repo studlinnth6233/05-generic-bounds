@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @author Peter Kurfer
  * Created on 11/2/17.
  */
-public abstract class Plant {
+public abstract class Plant implements Comparable<Plant> {
 
 	private final String family;
 	private final String name;
@@ -71,5 +71,10 @@ public abstract class Plant {
 				.append("height", height)
 				.append("color", getColor())
 				.toString();
+	}
+
+	@Override
+	public int compareTo(Plant plant) {
+		return Double.compare(this.height, plant.height);
 	}
 }
