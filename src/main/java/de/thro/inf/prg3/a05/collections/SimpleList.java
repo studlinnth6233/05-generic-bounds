@@ -18,24 +18,16 @@ public interface SimpleList<T> extends Iterable<T> {
 	void add(T o);
 
 	/**
-	 * @param clazz Class instance to solve the instantiation problem
-	 */
-	@SuppressWarnings("unchecked")
-	default void addDefault(Class<T> clazz) {
-		try {
-			/* better solution would be to use Google Guava to get a type token
-			and use this token to create a new instance
-			because we didn't include a reference to Guava this is the easiest way to create new instance of T */
-			this.add(clazz.newInstance());
-		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * @return current size of the list
 	 */
 	int size();
+
+	/**
+	 * Re
+	 */
+	default <T> SimpleList<T> makeInstance()  {
+		return new SimpleListImpl<T>();
+	}
 
 	/**
 	 * Generate a new list using the given filter instance.
@@ -45,12 +37,7 @@ public interface SimpleList<T> extends Iterable<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	default SimpleList<T> filter(SimpleFilter<T> filter) {
-		SimpleList<T> result;
-		try {
-			result = (SimpleList<T>) getClass().newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			result = new SimpleListImpl<>();
-		}
+		SimpleList<T> result = makeInstance();
 
 		for (T o : this) {
 			if (filter.include(o)) {
@@ -67,12 +54,7 @@ public interface SimpleList<T> extends Iterable<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	default <R> SimpleList<R> map(Function<? super T,? extends R> transform) {
-		SimpleList<R> result;
-		try {
-			result = (SimpleList<R>) getClass().newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			result = new SimpleListImpl<>();
-		}
+		SimpleList<R> result = makeInstance();
 		for (T t : this) {
 			result.add(transform.apply(t));
 		}
