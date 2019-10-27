@@ -18,21 +18,6 @@ public interface SimpleList<T> extends Iterable<T> {
 	void add(T o);
 
 	/**
-	 * @param clazz Class instance to solve the instantiation problem
-	 */
-	@SuppressWarnings("unchecked")
-	default void addDefault(Class<T> clazz) {
-		try {
-			/* better solution would be to use Google Guava to get a type token
-			and use this token to create a new instance
-			because we didn't include a reference to Guava this is the easiest way to create new instance of T */
-			this.add(clazz.newInstance());
-		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * @return current size of the list
 	 */
 	int size();
