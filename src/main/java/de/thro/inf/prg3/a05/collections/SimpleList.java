@@ -3,19 +3,16 @@ package de.thro.inf.prg3.a05.collections;
 import java.util.function.Function;
 
 /**
- * A simple list containing just a few basic methods
- * Inherits the Iterable interface to ease the handling (e.g. extended for-loop)
+ * Interface for a simple List
  *
- * @param <T> type of the items which will be saved in the list
+ * @param <E> Generic type for each Element of the List
  */
-public interface SimpleList<T> extends Iterable<T> {
-
+public interface SimpleList<E> extends Iterable<E>
+{
 	/**
 	 * Add a given object to the back of the list.
-	 *
-	 * @param o item to add
 	 */
-	void add(T o);
+	void add(E e);
 
 	/**
 	 * @return current size of the list
@@ -23,44 +20,56 @@ public interface SimpleList<T> extends Iterable<T> {
 	int size();
 
 	/**
-	 * Generate a new list using the given filter instance.
+	 * Create a new List containing all Elements matching the given Filter
 	 *
-	 * @param filter SimpleFilter instance to determine which elements should be included
-	 * @return a new, filtered list
+	 * @param filter The Filter to check
+	 *
+	 * @return List containing all Elements matching the Filter
 	 */
-	@SuppressWarnings("unchecked")
-	default SimpleList<T> filter(SimpleFilter<T> filter) {
-		SimpleList<T> result;
-		try {
-			result = (SimpleList<T>) getClass().newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			result = new SimpleListImpl<>();
-		}
+	default SimpleList<E> filter(SimpleFilter<E> filter)
+	{
+		SimpleList<E> filtered = this.newInstance();
 
-		for (T o : this) {
-			if (filter.include(o)) {
-				result.add(o);
-			}
-		}
-		return result;
+		for (E element : this)
+			if (filter.include(element))
+				filtered.add(element);
+
+		return filtered;
 	}
 
 	/**
-	 * @param transform
-	 * @param <R>
-	 * @return
+	 * Create a new List containing all Elements transformed using the give Function
+	 *
+	 * @param transform Function specifying the transformation operation
+	 * @param <R>       The Type of the Elements after the transformation
+	 *
+	 * @return List containing transformed Elements
 	 */
-	@SuppressWarnings("unchecked")
-	default <R> SimpleList<R> map(Function<T, R> transform) {
-		SimpleList<R> result;
-		try {
-			result = (SimpleList<R>) getClass().newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			result = new SimpleListImpl<>();
+	default <R> SimpleList<R> map(Function<E, R> transform)
+	{
+		SimpleList<R> transformed = this.newInstance();
+
+		for (E element : this)
+			transformed.add(transform.apply(element));
+
+		return transformed;
+	}
+
+	/**
+	 * Create a new instance of the List
+	 *
+	 * @return New instance of the List
+	 */
+	default SimpleList newInstance()
+	{
+		try
+		{
+			return this.getClass().newInstance();
 		}
-		for (T t : this) {
-			result.add(transform.apply(t));
+
+		catch (InstantiationException | IllegalAccessException e)
+		{
+			return new SimpleListImpl();
 		}
-		return result;
 	}
 }

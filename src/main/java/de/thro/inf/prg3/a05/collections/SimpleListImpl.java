@@ -3,122 +3,115 @@ package de.thro.inf.prg3.a05.collections;
 import java.util.Iterator;
 
 /**
- * Default implementation of the SimpleList interface
- *
  * @author Peter Kurfer
  * Created on 10/6/17.
  */
-public class SimpleListImpl<T> implements SimpleList<T> {
 
-	private ListElement<T> head;
-	private int size;
-
+/**
+ * Simple implementation of a linked List implementing own List Interface
+ *
+ * @param <E> The generic type for each Element in the List
+ */
+public class SimpleListImpl<E> implements SimpleList<E>
+{
 	/**
-	 * Default constructor
+	 * Inner class for one Element of the List
 	 */
-	public SimpleListImpl() {
-		head = null;
-	}
-
-	/**
-	 * Add an object to the end of the list
-	 *
-	 * @param item item to add
-	 */
-	@Override
-	public void add(T item) {
-		/* special case empty list */
-		if (head == null) {
-			head = new ListElement<>(item);
-		} else {
-			/* any other list length */
-			ListElement<T> current = head;
-			while (current.getNext() != null) {
-				current = current.getNext();
-			}
-			current.setNext(new ListElement<>(item));
-		}
-		size++;
-	}
-
-	/**
-	 * @return size of the list
-	 */
-	@Override
-	public int size() {
-		return size;
-	}
-
-	/**
-	 * Create a new iterator
-	 */
-	@Override
-	public Iterator<T> iterator() {
-		return new SimpleIterator();
-	}
-
-	/**
-	 * Helper class which implements the Iterator<TE> interface
-	 * Has to be non static because otherwise it could not access the head of the list
-	 */
-	private class SimpleIterator implements Iterator<T> {
-
-		private ListElement<T> current = head;
+	private class Element
+	{
+		E       item;
+		Element next;
 
 		/**
-		 * @inheritDoc
+		 * Constructor
+		 * Sets the item to store in the Element
+		 *
+		 * @param item The item to store in the Element
+		 */
+		Element(E item)
+		{
+			this.item = item;
+			this.next = null;
+		}
+	}
+
+	/**
+	 * Inner class for the Iterator of the List
+	 */
+	private class SimpleIteratorImpl implements Iterator<E>
+	{
+		Element current = head;
+
+		/**
+		 * Check if there is one more Element in the List
+		 *
+		 * @return True / False whether there is one more Element in the List
 		 */
 		@Override
-		public boolean hasNext() {
+		public boolean hasNext()
+		{
 			return current != null;
 		}
 
 		/**
-		 * @inheritDoc
+		 * Return the value of the next Element in the List
+		 *
+		 * @return Value of next Element
 		 */
 		@Override
-		public T next() {
-			T tmp = current.getItem();
-			current = current.getNext();
-			return tmp;
+		public E next()
+		{
+			E value = current.item;
+
+			current = current.next;
+
+			return value;
 		}
+	}
+
+	private Element head;
+
+	/**
+	 * Return a new Instance of the Iterator of the List
+	 *
+	 * @return New Instance of the Iterator
+	 */
+	@Override
+	public Iterator<E> iterator()
+	{
+		return new SimpleIteratorImpl();
 	}
 
 	/**
-	 * Helper class for the linked list
-	 * can be static because the ListElement does not need to access the SimpleList instance
+	 * Add a new Element to the back of the List
+	 *
+	 * @param e The Value to store
 	 */
-	private static class ListElement<T> {
-		private T item;
-		private ListElement<T> next;
+	@Override
+	public void add(E e)
+	{
+		Element tail = head;
 
-		ListElement(T item) {
-			this.item = item;
-			this.next = null;
-		}
+		while (tail != null && tail.next != null)
+			tail = tail.next;
 
-		/**
-		 * @return get object in the element
-		 */
-		public T getItem() {
-			return item;
-		}
-
-		/**
-		 * @return successor of the ListElement - may be NULL
-		 */
-		public ListElement<T> getNext() {
-			return next;
-		}
-
-		/**
-		 * Sets the successor of the ListElement
-		 *
-		 * @param next ListElement
-		 */
-		public void setNext(ListElement<T> next) {
-			this.next = next;
-		}
+		if (head == null) head      = new Element(e);
+		else              tail.next = new Element(e);
 	}
 
+	/**
+	 * Get the size of the List
+	 *
+	 * @return The size of the List
+	 */
+	@Override
+	public int size()
+	{
+		int count = 0;
+
+		for (E element : this)
+			count ++;
+
+		return count;
+	}
 }
