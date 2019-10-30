@@ -45,8 +45,7 @@ public interface SimpleList<E> extends Iterable<E>
 	 *
 	 * @return List containing transformed Elements
 	 */
-	default <R> SimpleList<R> map(Function<E, R> transform)
-	{
+	default <R> SimpleList<R> map(Function<? super E, ? extends R> transform) {
 		SimpleList<R> transformed = this.newInstance();
 
 		for (E element : this)
