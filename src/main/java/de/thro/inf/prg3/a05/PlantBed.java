@@ -45,7 +45,7 @@ public class PlantBed<T extends Plant>
      *
      * @return List only containing plants in the desired color
      */
-    SimpleList<T> getPlantsByColor(PlantColor color)
+    public SimpleList<T> getPlantsByColor(PlantColor color)
     {
         return this.plants.filter(plant -> plant.getColor() == color);
     }
